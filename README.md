@@ -28,7 +28,7 @@ This is the endpoint for all incoming requests to the bot
 ## Validator
 Main logic and interaction point for users, validates and updates score. 
 
-## getScoreBoard
+## GetScoreBoard
 Select few can trigger the scoreboard command defined in the admins array. Will post
 scoreboard to the Slack channel defined.
 
@@ -40,6 +40,10 @@ instance.
 2. Dependent on fetching keys corresponding to date the function is ran, eg 01.01.2022 = dag_1 in the dictionary
 3. Update riddle keys riddle dict stored in aws dynamo DB to the keys you store the riddles at
 4. Package the slack-sdk library with the function to enable execution
+
+### Infra req
+se photo for components, also need IAM roles for AWS Lambdas w correct permissions to read and update 
+secrets and AWS DDB tables
 
 ### Improvements to be done
 * IaaC scripts
