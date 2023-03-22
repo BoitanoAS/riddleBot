@@ -1,4 +1,4 @@
-### RiddleBOT
+# RiddleBOT
 SlackBot for setting up a game of riddles w scoreboard in a designated channel.
 ![](imgs/HLARC.png)
 
