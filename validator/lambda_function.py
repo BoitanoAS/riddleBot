@@ -3,7 +3,7 @@ import boto3
 import os
 from db_client import DbClient
 from slack_client import SlackClient
-from vars import ERR_ANS, INVALID_INPUT, INCORR_ANS
+from vars import ERR_ANS, INVALID_INPUT, INCORR_ANS, INCORR_ANS_DAY
 from guess import Guess
 from user import User
 from util import update_points
@@ -24,19 +24,19 @@ def lambda_handler(event, _):
         try:
             if guess.validate_input():
                 db_client.add_user_to_score_board(user)
-                if guess.is_ans_correct() and guess.is_day_correct():
+                if guess.is_ans_correct or guess.is_easter_egg():
                     body = update_points(user, db_client)
                 else:
-                    body = INCORR_ANS
+                    body = INCORR_ANS_DAY if not guess.is_day_correct() else INCORR_ANS
             else:
                 body = INVALID_INPUT
         except Exception as e:
-            print(f"error during main flow {e}")
+            print(f"Error during main flow: {e}")
             body = ERR_ANS
         try:
             slack_client.post_text(event.get("channel"), body)
         except Exception as e:
-            print(f"Error writing to slack {e}")
+            print(f"Error writing to slack: {e}")
             body = ERR_ANS
     return {
         'statusCode': 200,

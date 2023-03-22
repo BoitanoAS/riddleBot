@@ -1,10 +1,9 @@
 from dataclasses import dataclass
-import boto3
-import json
+from util import get_secret
 from datetime import datetime
 from vars import riddle_map
 from datetime import date
-
+import pytz
 
 @dataclass
 class Guess:
@@ -18,7 +17,12 @@ class Guess:
         guess_arr = self.text.lower().split(":")
         self.day = guess_arr[0].strip()
         self.guess = guess_arr[1].strip()
-        self.hourOfGuess = datetime.fromtimestamp(float(self.inputTime)).time().hour
+        self.hourOfGuess = self._get_hour_from_timestamp()
+
+    def _get_hour_from_timestamp(self):
+        tz = pytz.timezone("Europe/Vienna")
+        hour = datetime.fromtimestamp(float(self.inputTime), tz=tz).time().hour
+        return hour
 
     def validate_input(self):
         valid = False
@@ -30,6 +34,9 @@ class Guess:
             print(f"invalid input {e}")
         return valid
 
+    def is_easter_egg(self):
+        return self.day == "dag_42" and self.guess == get_secret(self.day).strip().lower()
+
     def is_day_correct(self):
         today = date.today()
         d1 = today.strftime("%d-%m-%Y")
@@ -37,15 +44,4 @@ class Guess:
         return self.day == key
 
     def is_ans_correct(self):
-        client = boto3.client(
-            service_name='secretsmanager',
-        )
-        try:
-            get_secret_value_response = client.get_secret_value(
-                SecretId=self.day
-            )
-            secret = json.loads(get_secret_value_response['SecretString']).get(self.day).strip().lower()
-            print(f"secret retrieved {secret}, usr guess: {self.guess}")
-            return secret == self.guess
-        except Exception as e:
-            print(f"Error fetching the secret {e}")
+        return get_secret(self.day).strip().lower() == self.guess and self.is_day_correct()

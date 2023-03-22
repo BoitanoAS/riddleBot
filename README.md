@@ -32,3 +32,4 @@ secrets and AWS DDB tables
 * Timezone stuff
 * Move vars to config files
 * Dev/Ops pipelines
+* Move common snippets to a common folder (to be packaged in depl pipeline)

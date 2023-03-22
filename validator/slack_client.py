@@ -1,13 +1,7 @@
 from dataclasses import dataclass
 from slack_sdk import WebClient
-import boto3
-import json
+from util import get_secret
 
-
-def get_secret(secret_name):
-    client = boto3.client(service_name='secretsmanager')
-    sec = json.loads(client.get_secret_value(SecretId=secret_name)['SecretString'])
-    return sec.get(secret_name)
 
 @dataclass
 class SlackClient:
