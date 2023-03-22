@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from vars import riddle_map
 from datetime import date
-import pytz
+import dateutil.tz
 import boto3
 import json
 
@@ -21,7 +21,7 @@ class Guess:
         self.guess_at_hour = self._get_hour_from_timestamp()
 
     def _get_hour_from_timestamp(self):
-        tz = pytz.timezone("Europe/Vienna")
+        tz = dateutil.tz.gettz("Europe/Vienna")
         hour = datetime.fromtimestamp(float(self.input_time), tz=tz).time().hour
         return hour
 

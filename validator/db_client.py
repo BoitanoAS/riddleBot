@@ -46,7 +46,6 @@ class DbClient:
         return self.corr_ans_tbl.get_item(Key={'bruker': user.user_id}).get("Item")
 
     def _get_points(self, guess: Guess):
-        # TODO: OBS w timezones skews guess interval
         items = self.corr_ans_tbl.scan(AttributesToGet=[guess.day]).get("Items")
         # TODO: Logic should be removed from here
         count = 0
