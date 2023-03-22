@@ -3,26 +3,8 @@ SlackBot for setting up a game of riddles w scoreboard in a designated channel.
 ![](imgs/HLARC.png)
 
 ## Slack set-up
-Under OAuth & Permissions the following scopes are needed
-Scopes
-- channels:history, channels:read
-- chat:write
-- im:history, im:read
-- mpim:write
-- usergroups:read
-- users:read, users:read.email 
-
-#### Interactivity and shortcuts - used for scoreboard
-RequestURL : `https://atpl2n15th.execute-api.us-east-2.amazonaws.com/default/showPoints`
-Must match API GW url of function that is triggered based on the interactivity.
-Add shortcut 
-* poengtavle, at `GLOBAL` location with callbackId poengtavle
-
-#### Event Subscriptions- used for validator
-Set RequestURL : `https://atpl2n15th.execute-api.us-east-2.amazonaws.com/default/validator`
-Must match API GW url of function that is triggered based on the interactivity.
-This is the endpoint for all incoming requests to the bot
----
+Add a new app and copy the app manifest. Trigger endpoint approval and check that the functions
+returns the auth challenge. 
 !! After set-up is done store Bot User OAuth Token in AWS key vault and reinstall app to workspace
 
 ## Validator
