@@ -6,6 +6,7 @@ import dateutil.tz
 import boto3
 import json
 
+
 @dataclass
 class Guess:
     text: str
@@ -50,4 +51,4 @@ class Guess:
         return self.day == key
 
     def is_ans_correct(self):
-        return self.get_secret(self.day).strip().lower() == self.input_guess and self.is_day_correct()
+        return (self.get_secret(self.day).strip().lower() == self.input_guess) and (self.is_day_correct())

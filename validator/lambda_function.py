@@ -1,4 +1,6 @@
 import json
+from datetime import time
+
 import boto3
 import os
 from db_client import DbClient
@@ -25,7 +27,7 @@ def lambda_handler(event, _):
             user.name = slack_client.get_user_name(user.user_id)
             if guess.validate_input():
                 db_client.add_user_to_score_board(user)
-                if guess.is_ans_correct or guess.is_easter_egg():
+                if guess.is_ans_correct() or guess.is_easter_egg():
                     body = update_points(user, db_client)
                 else:
                     body = INCORR_ANS_DAY if not guess.is_day_correct() else INCORR_ANS
