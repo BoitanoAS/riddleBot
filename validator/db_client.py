@@ -4,7 +4,6 @@ import os
 from guess import Guess
 from user import User
 
-
 @dataclass
 class DbClient:
     client = boto3.resource('dynamodb')
@@ -53,7 +52,7 @@ class DbClient:
         count = 0
         sum_guesses = sum([count + 1 for x in items if x.get(guess.day) == 'True'])
         points = 1 if sum_guesses >= 2 else 3
-        if (guess.hourOfGuess >= 9) and (guess.hourOfGuess <= 12):
+        if (guess.guess_at_hour >= 9) and (guess.guess_at_hour <= 12):
             points += 2
         return points
 

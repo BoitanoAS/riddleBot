@@ -28,8 +28,8 @@ se photo for components, also need IAM roles for AWS Lambdas w correct permissio
 secrets and AWS DDB tables
 
 ### Improvements to be done
+* Add tests
 * IaaC scripts
-* Timezone stuff
 * Move vars to config files
 * Dev/Ops pipelines
 * Move common snippets to a common folder (to be packaged in depl pipeline)

@@ -1,14 +1,6 @@
-import boto3
-import json
 from db_client import DbClient
 from user import User
 from vars import ALREADY_CORR, CORR_ANS, EASTER_EGG_ANS
-
-
-def get_secret(secret_name):
-    client = boto3.client(service_name='secretsmanager')
-    sec = json.loads(client.get_secret_value(SecretId=secret_name)['SecretString'])
-    return sec.get(secret_name)
 
 
 def update_points(user: User, client: DbClient):

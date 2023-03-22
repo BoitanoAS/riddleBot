@@ -8,6 +8,7 @@ from guess import Guess
 from user import User
 from util import update_points
 
+
 def lambda_handler(event, _):
     # get params from event
     event = json.loads(event.get("body")).get("event")
@@ -15,13 +16,13 @@ def lambda_handler(event, _):
         print("Post originating from bot, do nothing")
         body = None
     else:
-        boto3.setup_default_session(region_name=os.getenv("REGION"))
-        slack_client = SlackClient()
-        db_client = DbClient()
-        guess = Guess(text=event.get("text"), inputTime=event.get("event_ts"))
-        user = User(event.get("user"), guess)
-        user.name = slack_client.get_user_name(user.user_id)
         try:
+            boto3.setup_default_session(region_name=os.getenv("REGION"))
+            slack_client = SlackClient()
+            db_client = DbClient()
+            guess = Guess(text=event.get("text"), input_time=event.get("event_ts"))
+            user = User(event.get("user"), guess)
+            user.name = slack_client.get_user_name(user.user_id)
             if guess.validate_input():
                 db_client.add_user_to_score_board(user)
                 if guess.is_ans_correct or guess.is_easter_egg():
@@ -30,13 +31,9 @@ def lambda_handler(event, _):
                     body = INCORR_ANS_DAY if not guess.is_day_correct() else INCORR_ANS
             else:
                 body = INVALID_INPUT
-        except Exception as e:
-            print(f"Error during main flow: {e}")
-            body = ERR_ANS
-        try:
             slack_client.post_text(event.get("channel"), body)
         except Exception as e:
-            print(f"Error writing to slack: {e}")
+            print(f"Exception during main flow {e}")
             body = ERR_ANS
     return {
         'statusCode': 200,

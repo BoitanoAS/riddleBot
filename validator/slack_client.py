@@ -1,6 +1,14 @@
+import json
 from dataclasses import dataclass
+import boto3
+
 from slack_sdk import WebClient
-from util import get_secret
+
+
+def get_secret(secret_name):
+    client = boto3.client(service_name='secretsmanager')
+    sec = json.loads(client.get_secret_value(SecretId=secret_name)['SecretString'])
+    return sec.get(secret_name)
 
 
 @dataclass
@@ -19,5 +27,3 @@ class SlackClient:
             channel=channel_id,
             text=resp_txt
         )
-
-
