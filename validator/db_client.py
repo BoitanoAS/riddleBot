@@ -1,8 +1,12 @@
+import logging
 from dataclasses import dataclass
 import boto3
 import os
 from guess import Guess
 from user import User
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 @dataclass
 class DbClient:
@@ -46,12 +50,14 @@ class DbClient:
         return self.corr_ans_tbl.get_item(Key={'bruker': user.user_id}).get("Item")
 
     def _get_points(self, guess: Guess):
+        # TODO: OBS w timezones skews guess interval
         items = self.corr_ans_tbl.scan(AttributesToGet=[guess.day]).get("Items")
         # TODO: Logic should be removed from here
         count = 0
+        logging.info(f"time guessed: {guess.guess_at_hour}")
         sum_guesses = sum([count + 1 for x in items if x.get(guess.day) == 'True'])
         points = 1 if sum_guesses >= 2 else 3
-        if (guess.guess_at_hour >= 9) and (guess.guess_at_hour <= 12):
+        if (guess.guess_at_hour >= 9) and (guess.guess_at_hour <= 11):
             points += 2
         return points
 
