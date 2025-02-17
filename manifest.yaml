@@ -1,0 +1,35 @@
+display_information:
+  name: rebus
+features:
+  bot_user:
+    display_name: rebus
+    always_online: true
+  shortcuts:
+    - name: poengtavle
+      type: global
+      callback_id: poengtavle
+      description: Få en oversikt over de beste påskedetektivene i Boitano
+
+oauth_config:
+  scopes:
+    bot:
+      - channels:history
+      - channels:read
+      - chat:write
+      - im:history
+      - im:read
+      - mpim:write
+      - usergroups:read
+      - users:read
+      - users:read.email
+settings:
+  event_subscriptions:
+    request_url: https://ijpvfxcyz2.execute-api.us-east-2.amazonaws.com/default/validator
+    bot_events:
+      - message.im
+  interactivity:
+    is_enabled: true
+    request_url: https://atpl2n15th.execute-api.us-east-2.amazonaws.com/default/showPoints
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

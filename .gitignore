@@ -5,7 +5,8 @@ __pycache__/
 
 # C extensions
 *.so
-
+.idea
+.DS_STORE
 # Distribution / packaging
 .Python
 build/
@@ -126,4 +127,8 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
+<<<<<<< HEAD
 .pyre/
+=======
+.pyre/
+>>>>>>> 08636ea (init v.0.1)

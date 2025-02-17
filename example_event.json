@@ -1,0 +1,49 @@
+{
+    "token": "jJ8aFKWibDdfFJtw7yIhN86m",
+    "team_id": "T04QPPKDWPR",
+    "context_team_id": "T04QPPKDWPR",
+    "context_enterprise_id": null,
+    "api_app_id": "A04QPQ7LTHV",
+    "event": {
+        "client_msg_id": "7d034bd6-1f83-41d0-ba22-6586a2539c20",
+        "type": "message",
+        "text": "dag_3: Oslo",
+        "user": "U04RU0NTNGG",
+        "ts": "1677438384.521909",
+        "blocks": [
+            {
+                "type": "rich_text",
+                "block_id": "UREP",
+                "elements": [
+                    {
+                        "type": "rich_text_section",
+                        "elements": [
+                            {
+                                "type": "text",
+                                "text": "dag_3: Oslo"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "team": "T04QPPKDWPR",
+        "channel": "D04QXPDQXP0",
+        "event_ts": "1677438384.521909",
+        "channel_type": "im"
+    },
+    "type": "event_callback",
+    "event_id": "Ev04R8CJBUKX",
+    "event_time": 1677438384,
+    "authorizations": [
+        {
+            "enterprise_id": null,
+            "team_id": "T04QPPKDWPR",
+            "user_id": "U04RH0XENGZ",
+            "is_bot": true,
+            "is_enterprise_install": false
+        }
+    ],
+    "is_ext_shared_channel": false,
+    "event_context": "4-eyJldCI6Im1lc3NhZ2UiLCJ0aWQiOiJUMDRRUFBLRFdQUiIsImFpZCI6IkEwNFFQUTdMVEhWIiwiY2lkIjoiRDA0UVhQRFFYUDAifQ"
+}
